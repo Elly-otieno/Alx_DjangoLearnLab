@@ -7,19 +7,12 @@ Below are examples of how to create new `Book` instances in the Django shell usi
 python manage.py shell
 
 # Import the Book model
-from book_store.models import Book
+from bookshelf.models import Book
 
 # Create new book records
 Book.objects.create(
-    title="The Pragmatic Programmer",
-    author="William A",
-    publication_year=2000
+    title="1984",
+    author="George Orwell",
+    publication_year=1949
 )
-# Expected output: <Book: The Pragmatic Programmer> successfully created
-
-Book.objects.create(
-    title="Clean Code",
-    author="Robert C. Martin",
-    publication_year=2008
-)
-# Expected output: <Book: Clean Code> successfully created
+# Expected output: <Book: Book object (4)>
