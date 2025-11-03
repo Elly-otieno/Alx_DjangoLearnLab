@@ -1,7 +1,5 @@
 # Creating Book Instances Using Django ORM
 
-Below are examples of how to create new `Book` instances in the Django shell using the ORM.
-
 ```python
 # Open the Django shell
 python manage.py shell

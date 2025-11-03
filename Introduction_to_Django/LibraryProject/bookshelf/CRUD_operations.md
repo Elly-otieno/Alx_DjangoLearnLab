@@ -1,9 +1,5 @@
 # Django ORM CRUD Operations
 
-This document shows how to perform **Create**, **Retrieve**, **Update**, and **Delete** operations on the `Book` model using the Django shell.
-
----
-
 ## Create Operation
 
 ```python

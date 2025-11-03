@@ -1,6 +1,5 @@
 # Retrieving Book Instances Using Django ORM
 
-Below are examples of how to retrieve and display book details in the Django shell.
 
 ```python
 # Open the Django shell

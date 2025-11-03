@@ -1,6 +1,5 @@
 # Deleting Book Instances Using Django ORM
 
-Below is an example of how to delete a book record from the database using the Django shell.
 
 ```python
 # Open the Django shell

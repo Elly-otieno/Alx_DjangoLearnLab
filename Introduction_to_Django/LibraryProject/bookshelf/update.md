@@ -1,6 +1,5 @@
 # Updating Book Instances Using Django ORM
 
-Below is an example of how to update an existing book record in the Django shell.
 
 ```python
 # Open the Django shell
