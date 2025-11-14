@@ -7,8 +7,8 @@ from django.views.generic import DetailView
 def list_all_books(request):
     books = Book.objects.all()
     context = {'list_books': books}
-    return render(request, 'books/list_books.html', context)
+    return render(request, 'list_books.html', context)
 
 class display_library_details(DetailView):
     model = Library
-    template_name = 'books/library_detail.html'
+    template_name = 'library_detail.html'
