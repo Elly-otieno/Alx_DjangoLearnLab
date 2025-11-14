@@ -10,16 +10,21 @@ Retrieve the librarian for a library.
 
 
 # Query all books by a specific author.
-
-
-author = Author.objects.get(name='Elly Okoth')
-books = author.books.all()
+def get_book_by_author(author_name):
+    author = Author.objects.get(name=author_name)
+    books = Book.objects.filter(author=author)
+    return books
 
 # List all books in a library.
-library_name = 'Technology'
-library = Library.objects.get(name=library_name)
-books_in_library = library.books.all()
+def list_all_books_in_library(library_name):
+    library = Library.objects.get(name=library_name)
+    books_in_library = library.books.all()
+    return books_in_library
+
 
 # Retrieve the librarian for a library.
-library = Library.objects.get(name='Computing')
-librarian = library.librarian.name
+def get_librarian(library_name):
+    library = Library.objects.get(name=library_name)
+    librarian = library.librarian.name
+    return librarian
+
