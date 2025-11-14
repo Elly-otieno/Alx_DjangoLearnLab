@@ -20,4 +20,4 @@ books_in_library = library.books.all()
 
 # Retrieve the librarian for a library.
 library = Library.objects.get(name='Computing')
-librarian = library.librarian()
+librarian = library.librarian.name
