@@ -17,8 +17,8 @@ urlpatterns = [
     path('admin-dashboard/', views.admin_view, name='admin-dashboard'),
     path('member-dashboard/', views.member_view, name='member-dashboard'),
     path('librarian-dashboard/', views.librarian_view, name='librarian-dashboard'),
-    path('books/add/', views.add_book, name='add-book'),
-    path('books/edit/<int:pk>/', views.edit_book, name='edit-book'),
-    path('books/delete/<int:pk>/', views.delete_book, name='delete-book'),
+    path('add_book//', views.add_book, name='add-book'),
+    path('edit_book/<int:pk>/', views.edit_book, name='edit-book'),
+    path('delete_book/<int:pk>/', views.delete_book, name='delete-book'),
 
 ]
