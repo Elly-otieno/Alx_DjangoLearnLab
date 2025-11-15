@@ -49,15 +49,15 @@ def register(request):
     return render(request, 'relationship_app/register.html', {'form': form})
 
 
-class CustomLoginView(LoginView):
-    template_name= 'relationship_app/login.html'
-    success_url = reverse_lazy('books')
+# class CustomLoginView(LoginView):
+#     template_name= 'relationship_app/login.html'
+#     success_url = reverse_lazy('books')
 
-    def get_success_url(self):
-        return reverse_lazy('books')  # overrides any ?next= parameter
+#     def get_success_url(self):
+#         return reverse_lazy('books')  # overrides any ?next= parameter
 
 
 
-class CustomLogoutView(LogoutView):
-    template_name= 'relationship_app/logout.html'
-    success_url = reverse_lazy('login')
+# class CustomLogoutView(LogoutView):
+#     template_name= 'relationship_app/logout.html'
+#     success_url = reverse_lazy('login')
