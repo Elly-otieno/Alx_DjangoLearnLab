@@ -28,10 +28,11 @@ def get_librarian(library_name):
     return librarian
 
 '''
+from relationship_app.models import Author, Book, Library, Librarian
 author1 = Author.objects.create(name="Elly Okoth")
 author2 = Author.objects.create(name="Elly Senior")
-book1 = Book.objects.create(name='Django for Beginners', author=author1)
-book2 = Book.objects.create(name='Django Advanced', author=author2)
+book1 = Book.objects.create(title='Django for Beginners', author=author1)
+book2 = Book.objects.create(title='Django Advanced', author=author2)
 # library1=Library.objects.create(name='Computing', books=[book1, book2])
 # library2= Library.objects.create(name='Technology', books=[book2])
 
