@@ -24,7 +24,7 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
 
-
+# class based sign up
 class SignUpView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
@@ -35,6 +35,18 @@ class SignUpView(CreateView):
         login(self.request, user)  # Log in the newly registered user
         messages.success(self.request, "Registration successful. You're now logged in.")
         return redirect('books')  # Or wherever you want to redirect
+
+# function based sign up
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('books')
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
