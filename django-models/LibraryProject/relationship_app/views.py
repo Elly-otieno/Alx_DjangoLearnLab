@@ -12,8 +12,8 @@ from django.views.generic import CreateView
 # from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.shortcuts import redirect
-
-from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 # from django.http import HttpResponseForbidden 
 
 
