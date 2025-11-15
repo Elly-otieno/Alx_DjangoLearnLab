@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from week_10.models import Book
 from django.urls import reverse_lazy
 
-
-from django.views.generic import TemplateView, DetailView, UpdateView
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 
 # Create your views here.
 
@@ -45,9 +45,15 @@ class BookUpdateView(UpdateView):
     fields = ['title', 'author', 'description'] # specify fields to be editable
     template_name = 'books/book_update.html'
     success_url = reverse_lazy('book_list') # URL to redirect after succesful update
-    
+
     def form_valid(self, form):
         '''Executes custom logic after form validation'''
         response = super().form_valid(form)  # Call default form validatiom
         # Perform additional actions after successful update e.g send notifications
         return response
+    
+
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'week_10/signup.html'
