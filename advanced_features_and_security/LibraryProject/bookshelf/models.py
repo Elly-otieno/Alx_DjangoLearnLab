@@ -7,6 +7,14 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+    class Meta:
+        Permissions = [
+            ("can_view", "Can view"),
+            ("can_create", "Can create"),
+            ("can_edit", "Can edit"),
+            ("can_delete ", "Can delete"),
+        ]
+
 class CustomUserManager(BaseUserManager):
     """Custom manager for users with email authentication."""
     def create_user(self, username, email, password, **extra_fields):
