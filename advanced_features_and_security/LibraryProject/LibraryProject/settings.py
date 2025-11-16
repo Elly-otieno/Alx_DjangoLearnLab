@@ -31,6 +31,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# auth model
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 # Application definition
 
@@ -135,3 +137,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# auth backends
+AUTHENTICATION_BACKENDS = [
+    'week_11.backends.EmailBackend',  # Your custom backend
+    'django.contrib.auth.backends.ModelBackend',  # Keep the default backend as a fallback
+]
