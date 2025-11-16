@@ -27,7 +27,35 @@ SUB_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-)wxhe%hxuq$2n4$8^4)))xd)#mm(mt!=^7c4a0ie2@9)5g84qq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+# Browser protections
+SECURE_BROWSER_XSS_FILTER = True            # enable X-XSS-Protection header
+SECURE_CONTENT_TYPE_NOSNIFF = True          # prevent MIME sniffing
+X_FRAME_OPTIONS = "DENY"                    # prevent clickjacking 
+
+# Cookies — require HTTPS transport for session and CSRF cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# HttpOnly to prevent JavaScript access to session cookie
+SESSION_COOKIE_HTTPONLY = True
+# CSRF_COOKIE_HTTPONLY usually kept False because some client-side code may need CSRF token.
+
+# HSTS — force HTTPS 
+SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_SECURE_HSTS_SECONDS", "31536000"))  
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Redirect HTTP -> HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Content Security Policy (if using django-csp)
+# Install django-csp and add to INSTALLED_APPS & MIDDLEWARE.
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")  # keep 'unsafe-inline' only if necessary
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", "data:")
 
 ALLOWED_HOSTS = []
 
@@ -45,6 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf.apps.BookshelfConfig',
     'relationship_app.apps.RelationshipAppConfig',
+    "csp"
 ]
 
 MIDDLEWARE = [
@@ -52,6 +81,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "csp.middleware.CSPMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -141,6 +171,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # auth backends
 AUTHENTICATION_BACKENDS = [
-    'week_11.backends.EmailBackend',  # Your custom backend
+    'bookshelf.backends.EmailBackend',  # Your custom backend
     'django.contrib.auth.backends.ModelBackend',  # Keep the default backend as a fallback
 ]
+
+# At deploy time run: python manage.py check --deploy

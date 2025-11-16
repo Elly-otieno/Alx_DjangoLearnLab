@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import BookForm 
+from .forms import BookForm, BookSearchForm
 from .models import Book
 
 
@@ -49,3 +49,16 @@ def create_book(request):
     else:
         form = BookForm()
     return render(request, 'bookshelf/add_book.html', {'form': form})
+
+
+# Safe search view using Django Form validation and ORM
+@permission_required('bookshelf.can_view', raise_exception=True)
+def book_search(request):
+    form = BookSearchForm(request.GET or None)
+    books = Book.objects.none()
+    if form.is_valid():
+        q = form.cleaned_data.get('q', '').strip()
+        if q:
+            # Using ORM parameterization to avoid SQL injection
+            books = Book.objects.filter(title__icontains=q).order_by('publication_year')
+    return render(request, 'bookshelf/book_list.html', {'books': books, 'form': form})
