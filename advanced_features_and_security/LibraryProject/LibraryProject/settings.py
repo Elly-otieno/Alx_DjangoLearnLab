@@ -57,6 +57,11 @@ CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")  # keep 'unsafe-inline' only if ne
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'", "data:")
 
+
+# Honor the X-Forwarded-Proto header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 ALLOWED_HOSTS = []
 
 # auth model
