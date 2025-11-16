@@ -7,5 +7,5 @@ class BookForm(forms.ModelForm):
         fields = ['title', 'author', 'publication_year']
 
 
-class BookSearchForm(forms.Form):
+class ExampleForm(forms.Form):
     q = forms.CharField(max_length=200, required=False)
