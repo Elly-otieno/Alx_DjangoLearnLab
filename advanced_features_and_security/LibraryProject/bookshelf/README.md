@@ -61,13 +61,4 @@ def create_book(request):
 - All forms include {% csrf_token %} and use Django Forms for validation
 - ORM used for queries; no raw SQL used without parameterization
 
-## Tests performed
-1. CSRF: submitting POST without token -> 403 (tested via form POST via curl)
-2. XSS: inputting a `<script>` into title field -> displayed escaped in templates (no execution)
-3. HTTPS: server redirects HTTP to HTTPS, cookie flags present
-4. SQL injection: attempted closing quotes in search input -> no DB error; treated as string by ORM
 
-## Improvements to consider
-- Add automated scanning (Bandit, OWASP ZAP)
-- Rate limiting on login endpoints
-- Centralized logging/alerting for security events
