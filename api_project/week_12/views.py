@@ -31,3 +31,32 @@ ViewSet: A base class that allows you to define custom actions and implement spe
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+
+# Authentication and permissions
+
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.views import APIView
+
+class MyAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Only authenticated users can access this view
+        #return Response({'message': 'Hello, authenticated user!'})
+        queryset = Book.objects.all()
+        serializer = BookSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+class MyAPICreateView(APIView):
+    authrntication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
+
+    def post(self, request):
+        # Only admins can create a new model instances
+        serializer = BookSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

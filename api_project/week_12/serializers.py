@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book
+from .models import Book, Post
 from django.utils import timezone
 
 '''
@@ -23,3 +23,9 @@ class BookSerializer(serializers.ModelSerializer):
         if len(data['title']) < 5:
             raise serializers.ValidationError("title must be atleast 5 characters long.")
         return data
+    
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'content', 'author', 'created_at']
