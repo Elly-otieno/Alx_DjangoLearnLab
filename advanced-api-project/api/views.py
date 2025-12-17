@@ -66,7 +66,12 @@ class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
+    search_fields = ['title', 'author']
+    # Enable filtering
+    filterset_fields = ['title', 'author', 'publication_year']
+    ordering_fields = ['title ', 'publication_year']
+
 
 
 class BookDeleteAPIView(generics.DestroyAPIView):
