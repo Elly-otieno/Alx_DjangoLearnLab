@@ -9,7 +9,7 @@ from rest_framework import generics, permissions, filters
 from .serializers import BookSerializer
 # Create your views here.
 
-class BookCreateView(LoginRequiredMixin, CreateView):
+class BookCreateHTMLView(LoginRequiredMixin, CreateView):
     model = Book
     fields = ['id', 'title', 'publication_year', 'author']
     template_name = 'book_form.html'
@@ -19,25 +19,25 @@ class BookCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class BookDetailView(DetailView):
+class BookDetailHTMLView(DetailView):
     model = Book
     template_name = 'book_detail.html'
     context_object_name = 'book'
 
-class BookListView(ListView):
+class BookListHTMLView(ListView):
     model = Book
     template_name = 'book_list.html'
     context_object_name = 'books'
     ordering = ['-publication_year']
 
 
-class BookDeleteView(LoginRequiredMixin, DeleteView):
+class BookDeleteHTMLView(LoginRequiredMixin, DeleteView):
     model = Book
     template_name = 'book_delete.html'
     success_url = reverse_lazy('book-list')
     login_url = '/login/'
 
-class BookUpdateView(LoginRequiredMixin, UpdateView):
+class BookUpdateHTMLView(LoginRequiredMixin, UpdateView):
     model = Book
     fields = ['title', 'publication_year', 'author']
     template_name = 'book_update.html'
@@ -48,35 +48,35 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class BookCreateView(generics.CreateAPIView):
+class BookCreateAPIView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.Is_Authenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-class BookDetailView(generics.RetrieveAPIView):
+class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.AllowAny]
 
-class BookListView(generics.ListAPIView):
+class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.SearchFilter]
 
 
-class BookDeleteView(generics.UpdateAPIView):
+class BookDeleteAPIView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.Is_Authenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
         serializer.save(author=self.request.user)
 
-class BookUpdateView(generics.DestroyAPIView):
+class BookUpdateAPIView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.Is_Authenticated]
+    permission_classes = [permissions.IsAuthenticated]
