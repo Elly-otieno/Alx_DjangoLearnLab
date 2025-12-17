@@ -48,35 +48,35 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-# class BookCreateView(generics.CreateAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     permission_classes = [permissions.Is_Authenticated]
+class BookCreateView(generics.CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.Is_Authenticated]
 
-#     def perform_create(self, serializer):
-#         serializer.save(author=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
-# class BookDetailView(generics.RetrieveAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     permission_classes = [permissions.AllowAny]
+class BookDetailView(generics.RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.AllowAny]
 
-# class BookListView(generics.ListAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     permission_classes = [permissions.AllowAny]
-#     filter_backends = [filters.SearchFilter]
+class BookListView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.AllowAny]
+    filter_backends = [filters.SearchFilter]
 
 
-# class BookDeleteView(generics.UpdateAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     permission_classes = [permissions.Is_Authenticated]
+class BookDeleteView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.Is_Authenticated]
 
-#     def perform_update(self, serializer):
-#         serializer.save(author=self.request.user)
+    def perform_update(self, serializer):
+        serializer.save(author=self.request.user)
 
-# class BookUpdateView(generics.DestroyAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-#     permission_classes = [permissions.Is_Authenticated]
+class BookUpdateView(generics.DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.Is_Authenticated]
