@@ -5,7 +5,8 @@ from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import BookSerializer
 # Create your views here.
 
@@ -51,7 +52,7 @@ class BookUpdateHTMLView(LoginRequiredMixin, UpdateView):
 class BookCreateAPIView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -59,19 +60,19 @@ class BookCreateAPIView(generics.CreateAPIView):
 class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [filters.SearchFilter]
 
 
 class BookDeleteAPIView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         serializer.save(author=self.request.user)
@@ -79,4 +80,4 @@ class BookDeleteAPIView(generics.DestroyAPIView):
 class BookUpdateAPIView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
