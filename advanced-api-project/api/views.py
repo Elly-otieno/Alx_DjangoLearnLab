@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import BookSerializer
+from django_filters import rest_framework
 # Create your views here.
 
 class BookCreateHTMLView(LoginRequiredMixin, CreateView):
@@ -66,7 +67,7 @@ class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [filters.SearchFilter, rest_framework.DjangoFilterBackend, filters.OrderingFilter]
     search_fields = ['title', 'author']
     # Enable filtering
     filterset_fields = ['title', 'author', 'publication_year']
