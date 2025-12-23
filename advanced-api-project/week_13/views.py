@@ -70,7 +70,7 @@ class BlogPostDetailView(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
     
 '''
-Using Concrete Generic Views (Shortcut)
+Using Concrete Generic Views 
 Instead of writing mixins manually, DRF provides ready-made classes
 '''
 class BlogPostListCreateView(generics.ListCreateAPIView):
@@ -80,3 +80,5 @@ class BlogPostListCreateView(generics.ListCreateAPIView):
 class BlogPostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
+
+
