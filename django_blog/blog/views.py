@@ -8,8 +8,14 @@ from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import PostForm
+from django.views.generic import FormView
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+class SignUpView(FormView):
+    form_class = UserCreationForm
+    template_name = '/blog/register.html'
+    success_url = '/'
 
 class PostDisplayView(ListView):
     model = Post
