@@ -5,11 +5,12 @@ from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
 )
 from .models import Post
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .forms import PostForm
 from django.views.generic import FormView
 from django.contrib.auth.forms import UserCreationForm
+
 
 # Create your views here.
 class SignUpView(FormView):
@@ -44,7 +45,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         kwargs['user'] = self.request.user # pass logged-in user to form
         return kwargs
     
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = ''
@@ -61,9 +62,17 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         kwargs['user'] = self.request.user
         return kwargs
     
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+    
 
-class PostDeleteView(LoginRequiredMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = ''
     login_url = ''
     success_url = reverse_lazy('post-list')
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
